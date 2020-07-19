@@ -7,46 +7,48 @@ jobs:
       name: node/default
     steps:
       - checkout
+      - restore_cache:
+          keys: [frontend-build]
       - run:
           name: Lint frontend
           command: |
             cd frontend
-            npm cache clean --force
             npm install
-            npm update
             npm run build
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build
   test-frontend:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
       - run: cd frontend
-      - run: npm cache clean --force
       - run: npm install
-      - run: npm update
       - run: npm run test
   build-backend:
     executor:
       name: node/default
     steps:
       - checkout
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: Lint backend        
           command: |
             cd backend
-            npm cache clean --force
             npm install
-            npm update
             npm run build
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
   test-backend:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
       - run: cd backend
-      - run: npm cache clean --force
       - run: npm install
-      - run: npm update
       - run: npm run test
   analyze-frontend:
     docker:
