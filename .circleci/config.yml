@@ -39,13 +39,13 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - run: cd frontend && npm audit --audit-level=critical
+      - run: cd frontend && npm audit fix --audit-level=critical --force
   analyze-backend:
     executor:
       name: node/default
     steps:
       - checkout
-      - run: cd backend && npm audit --audit-level=critical
+      - run: cd backend && npm audit fix --audit-level=critical --force
 workflows:
   build-and-test:
     jobs:
