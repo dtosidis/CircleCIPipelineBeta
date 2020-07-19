@@ -7,58 +7,42 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - restore_cache:
-          keys: [frontend-build]
-      - run:
-          name: Lint frontend
-          command: |
-            cd frontend
-            npm install
-            npm run build
-      - save_cache:
-          paths: [frontend/node_modules]
-          key: frontend-build
+      - node/with-cache:
+          steps:
+            - run: cd frontend && npm i && npm run build
   test-frontend:
-    docker:
-      - image: circleci/node:13.8.0
+    executor:
+      name: node/default
     steps:
       - checkout
-      - run: cd frontend
-      - run: npm install
-      - run: npm run test
+      - node/with-cache:
+          steps:
+            - run: cd frontend && npm i && npm run test
   build-backend:
     executor:
       name: node/default
     steps:
       - checkout
-      - restore_cache:
-          keys: [backend-build]
-      - run:
-          name: Lint backend        
-          command: |
-            cd backend
-            npm install
-            npm run build
-      - save_cache:
-          paths: [backend/node_modules]
-          key: backend-build
+      - node/with-cache:
+          steps:                
+            - run: cd backend && npm i && npm run build
   test-backend:
-    docker:
-      - image: circleci/node:13.8.0
+    executor:
+      name: node/default
     steps:
       - checkout
-      - run: cd backend
-      - run: npm install
-      - run: npm run test
+      - node/with-cache:
+          steps:
+            - run: cd backend && npm i && npm run test
   analyze-frontend:
-    docker:
-      - image: circleci/node:13.8.0
+    executor:
+      name: node/default
     steps:
       - checkout
       - run: npm audit --audit-level=critical
   analyze-backend:
-    docker:
-      - image: circleci/node:13.8.0
+    executor:
+      name: node/default
     steps:
       - checkout
       - run: npm audit --audit-level=critical
