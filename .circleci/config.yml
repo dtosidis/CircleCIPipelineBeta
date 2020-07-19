@@ -11,7 +11,7 @@ jobs:
           name: Lint frontend
           command: |
             cd frontend
-            npm install
+            npm i
             npm update
             npm run build
   test-frontend:
@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - run: cd frontend
-      - run: npm install
+      - run: npm i
       - run: npm update
       - run: npm run test
   build-backend:
@@ -32,7 +32,7 @@ jobs:
           name: Lint backend        
           command: |
             cd backend
-            npm install
+            npm i
             npm update
             npm run build
   test-backend:
@@ -41,9 +41,21 @@ jobs:
     steps:
       - checkout
       - run: cd backend
-      - run: npm install
+      - run: npm i
       - run: npm update
       - run: npm run test
+  analyze-frontend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: npm audit --audit-level=critical
+  analyze-backend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: npm audit --audit-level=critical
 workflows:
   build-and-test:
     jobs:
