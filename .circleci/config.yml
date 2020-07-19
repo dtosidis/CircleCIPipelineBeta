@@ -1,0 +1,57 @@
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
+jobs:
+  build-frontend:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run:
+          name: Lint frontend
+          command: |
+            cd frontend
+            npm i
+            npm update
+            npm run build
+  test-frontend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: cd frontend
+      - run: npm i
+      - run: npm update
+      - run: npm run test
+  build-backend:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run:
+          name: Lint backend        
+          command: |
+            cd backend
+            npm i
+            npm update
+            npm run build
+  test-backend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: cd backend
+      - run: npm i
+      - run: npm update
+      - run: npm run test
+workflows:
+  build-and-test:
+    jobs:
+      - build-frontend
+      - test-frontend:
+         requires:
+           - build-frontend
+      - build-backend
+      - test-backend:
+         requires:
+           - build-backend
