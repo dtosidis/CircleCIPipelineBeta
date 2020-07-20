@@ -57,6 +57,7 @@ jobs:
           mentions: 'dtosidis'
           message: This is a custom message notification
           webhook: https://app.slack.com/client/T013H39SHNE/
+          when: on_fail
 workflows:
   build-and-test:
     jobs:
