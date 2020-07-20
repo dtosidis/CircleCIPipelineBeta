@@ -51,16 +51,12 @@ jobs:
     executor:
       name: node/default
     steps:
-        - run:
-             when: on_fail
-             command: |
-                curl -X POST {https://app.slack.com/client/T013H39SHNE/C013AB5AETY} -d '{webhook-variables-for-slack-message}'
-                #      - run: exit 0
-                #   - slack/status:
-                # fail_only: true
-                # mentions: 'dtosidis'
-                # only_for_branches: only_for_branches
-                # webhook: https://app.slack.com/client/T013H39SHNE/
+      - run: exit 0
+      - slack/status:
+          fail_only: true
+          mentions: 'dtosidis'
+          only_for_branches: only_for_branches
+          webhook: https://app.slack.com/client/T013H39SHNE/
         #          channel: https://app.slack.com/client/T013H39SHNE
         #  color: '#42e2f4'
         #  mentions: 'dtosidis'
