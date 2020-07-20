@@ -46,6 +46,16 @@ jobs:
     steps:
       - checkout
       - run: cd backend && npm audit fix --audit-level=critical --force
+  slack-notify:
+    executor:
+      name: node/default
+    steps:
+      - slack/notify:
+          channel: https://app.slack.com/client/T013H39SHNE
+          color: '#42e2f4'
+          mentions: 'dtosidis'
+          message: This is a custom message notification
+          webhook: webhook
 workflows:
   build-and-test:
     jobs:
@@ -63,3 +73,7 @@ workflows:
       - analyze-backend:
          requires:
            - test-backend
+      - slack-notify:
+         requires:
+           - build-frontend
+           - build-backend
