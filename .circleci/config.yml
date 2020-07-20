@@ -51,13 +51,17 @@ jobs:
     executor:
       name: node/default
     steps:
-      - slack/notify:
-          channel: https://app.slack.com/client/T013H39SHNE
-          color: '#42e2f4'
+      - run: exit 0
+      - slack/status:
+          fail_only: true
           mentions: 'dtosidis'
-          message: This is a custom message notification
+          only_for_branches: only_for_branches
           webhook: https://app.slack.com/client/T013H39SHNE/
-          when: on_fail
+        #          channel: https://app.slack.com/client/T013H39SHNE
+        #  color: '#42e2f4'
+        #  mentions: 'dtosidis'
+        #  message: This is a custom message notification
+        #  webhook: https://app.slack.com/client/T013H39SHNE/
 workflows:
   build-and-test:
     jobs:
