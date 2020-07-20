@@ -79,7 +79,4 @@ workflows:
       - analyze-backend:
          requires:
            - test-backend
-      - slack-notify:
-         requires:
-           - build-frontend
-           - build-backend
+      - slack-notify
