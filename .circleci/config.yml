@@ -104,4 +104,5 @@ workflows:
          requires:
            - test-backend
       - slack-notify
+      - deploy-job
       - deploy-backend-infrastructure
