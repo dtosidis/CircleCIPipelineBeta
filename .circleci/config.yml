@@ -71,6 +71,7 @@ jobs:
 workflows:
   build-and-test:
     jobs:
+      - slack-notify
       - build-frontend
       - test-frontend:
          requires:
@@ -85,4 +86,3 @@ workflows:
       - analyze-backend:
          requires:
            - test-backend
-      - slack-notify
