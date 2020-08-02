@@ -47,16 +47,17 @@ jobs:
     steps:
       - checkout
       - run: cd backend && npm audit fix --audit-level=critical --force
-  slack-notify:
-    executor:
-      name: node/default
-    steps:
-      - run: exit 0
-      - slack/status:
-          fail_only: true
-          mentions: 'dtosidis'
-          only_for_branches: only_for_branches
-          webhook: https://app.slack.com/client/T013H39SHNE/
+        #  slack-notify:
+        #    executor:
+        #      name: node/default
+        #    steps:
+        #      - run: exit 0
+        #      - slack/status:
+        #          fail_only: true
+        #          mentions: 'dtosidis'
+        #          only_for_branches: only_for_branches
+        #          webhook: https://app.slack.com/client/T013H39SHNE/
+        
         #          channel: https://app.slack.com/client/T013H39SHNE
         #  color: '#42e2f4'
         #  mentions: 'dtosidis'
@@ -71,7 +72,7 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - slack-notify
+            #      - slack-notify
       - build-frontend
       - test-frontend:
          requires:
