@@ -62,12 +62,12 @@ jobs:
         #  mentions: 'dtosidis'
         #  message: This is a custom message notification
         #  webhook: https://app.slack.com/client/T013H39SHNE/
-  deploy-job:
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - checkout
-            - "7c:6f:89:3f:8d:67:78:dd:00:49:52:3e:e5:d2:1c:3b"
+        # deploy-job:
+        # steps:
+        # - add_ssh_keys:
+        # fingerprints:
+        #    - checkout
+        #    - "7c:6f:89:3f:8d:67:78:dd:00:49:52:3e:e5:d2:1c:3b"
 workflows:
   build-and-test:
     jobs:
