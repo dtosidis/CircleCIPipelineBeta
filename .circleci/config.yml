@@ -78,8 +78,8 @@ jobs:
         #  message: This is a custom message notification
         #  webhook: https://app.slack.com/client/T013H39SHNE/
   configure-infrastructure:
-    executor:
-      name: node/default
+    docker:
+      - image: python:3.7-alpine3.11
     steps:
       - add_ssh_keys:
           fingerprints:
